@@ -18,8 +18,9 @@ import next from "next";
 
 
 const getProducts = async() => {
-  const products = await fetch('https://www.screentechnicals.com/api/ecommerce/products', {next: {revalidate:10}});
-  return products.json();
+  const response = await fetch('https://www.screentechnicals.com/api/ecommerce/products');
+  const products = await response.json();
+  return products;
 }
 
 export default async function Page() {
@@ -97,9 +98,9 @@ export default async function Page() {
           Popular Categories ✨
         </h1>
         <div className="w-full flex justify-center items-center flex-wrap">
-          {componets.map((item) => {
+          {componets.map((item, index) => {
             return (
-              <Link href={`/category/${item.category}`}>
+              <Link key={index} href={`/category/${item.category}`}>
                 <button className="text-6xl border shadow-md p-5 rounded-xl hover:scale-90 transition-transform m-3">
                   {item.icon}
                 </button>
