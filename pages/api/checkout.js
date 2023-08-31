@@ -22,8 +22,8 @@ export default async function handler(req, res) {
     shipping_address_collection: {
       allowed_countries: ["IN"],
     },
-    success_url: `http://localhost:${process.env.NEXT_PUBLIC_HOST}/success`,
-    cancel_url: `http://localhost:${process.env.NEXT_PUBLIC_HOST}/cancel`,
+    success_url: `${process.env.NEXT_PUBLIC_HOST}/success`,
+    cancel_url: `${process.env.NEXT_PUBLIC_HOST}/cancel`,
     metadata: {
       userId: uid,
       images: JSON.stringify(cart.map((item) => item.image)),
