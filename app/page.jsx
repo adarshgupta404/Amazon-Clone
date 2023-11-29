@@ -18,7 +18,7 @@ import next from "next";
 
 
 const getProducts = async() => {
-  const response = await fetch('https://www.screentechnicals.com/api/ecommerce/products');
+  const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/data/`);
   const products = await response.json();
   return products;
 }

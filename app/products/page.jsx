@@ -4,7 +4,7 @@ import Card from "../components/Card";
 
 const getProducts = async () => {
   const products = await fetch(
-    "https://www.screentechnicals.com/api/ecommerce/products",
+    `${process.env.NEXT_PUBLIC_HOST}/api/data/`,
     { next: { revalidate: 10 } }
   );
   return products.json();
