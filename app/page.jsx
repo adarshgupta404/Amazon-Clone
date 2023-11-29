@@ -14,23 +14,9 @@ import { v4 } from 'uuid';
 import Link from 'next/link';
 import Carousel from './components/Carousel';
 
-const getProducts = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/data/`);
-  const products = await response.json();
-  return products;
-};
 
-export async function getServerSideProps() {
-  const products = await getProducts();
 
-  return {
-    props: {
-      products,
-    },
-  };
-}
-
-export default function Page({ products }) {
+export default function Page() {
   let components = [
     {
       icon: <BsLaptopFill key={v4()} />,
@@ -107,7 +93,7 @@ export default function Page({ products }) {
       <div>
         <h1 className="text-center font-bold text-3xl pt-10 pb-5">Hot Deals 🔥</h1>
         <div className="w-full p-5 md:px-10">
-          {products?.length>0 && <Carousel products={products} />}
+          {/* {products?.length>0 && <Carousel products={products} />} */}
         </div>
       </div>
     </div>
