@@ -14,14 +14,19 @@ import { v4 } from 'uuid';
 import Link from 'next/link';
 import Carousel from './components/Carousel';
 
+const getProducts = async () => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/data/`);
+  const products = await response.json();
+  return products;
+};
+
 export async function getServerSideProps() {
-  const data = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/data`);
-  const products = await data.json()
-  
+  const products = await getProducts();
+
   return {
     props: {
-      products
-    }
+      products,
+    },
   };
 }
 
@@ -64,7 +69,7 @@ export default function Page({ products }) {
       category: 'game',
     },
   ];
-  console.log(products)
+
   return (
     <div className="w-full md:overflow-x-hidden">
       <div className="w-full lg:h-[40vh] magic-gradient rounded-xl shadow-md flex justify-between items-center overflow-hidden">
@@ -102,7 +107,7 @@ export default function Page({ products }) {
       <div>
         <h1 className="text-center font-bold text-3xl pt-10 pb-5">Hot Deals 🔥</h1>
         <div className="w-full p-5 md:px-10">
-          {products && <Carousel products={products} />}
+          {products?.length>0 && <Carousel products={products} />}
         </div>
       </div>
     </div>
