@@ -14,17 +14,18 @@ import { v4 } from 'uuid';
 import Link from 'next/link';
 import Carousel from './components/Carousel';
 
+export async function getServerSideProps() {
+  const data = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/data`);
+  const products = await data.json()
+  
+  return {
+    props: {
+      products
+    }
+  };
+}
 
-const getProduct = async ()=> {
-  const products = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/data`,
-    { next: { revalidate: 10 } }
-  );
-  return products.json();
-};
-
-export default async function Page() {
-  const products = await getProduct();
+export default function Page({ products }) {
   let components = [
     {
       icon: <BsLaptopFill key={v4()} />,
@@ -63,7 +64,7 @@ export default async function Page() {
       category: 'game',
     },
   ];
-  // console.log(products)
+  console.log(products)
   return (
     <div className="w-full md:overflow-x-hidden">
       <div className="w-full lg:h-[40vh] magic-gradient rounded-xl shadow-md flex justify-between items-center overflow-hidden">
@@ -101,7 +102,7 @@ export default async function Page() {
       <div>
         <h1 className="text-center font-bold text-3xl pt-10 pb-5">Hot Deals 🔥</h1>
         <div className="w-full p-5 md:px-10">
-          <Carousel products={products} />
+          {products && <Carousel products={products} />}
         </div>
       </div>
     </div>
