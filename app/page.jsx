@@ -13,7 +13,6 @@ import { IoGameController } from "react-icons/io5";
 import { v4 } from "uuid";
 import Link from "next/link";
 import Carousel from "./components/Carousel";
-import next from "next";
 
 
 
@@ -22,8 +21,7 @@ const getProducts = async() => {
   const products = await response.json();
   return products;
 }
-
-export default async function Page() {
+const Page = async()=> {
   const products = await getProducts();
   let componets = [
     {
@@ -118,3 +116,4 @@ export default async function Page() {
     </div>
   );
 }
+export default Page;
